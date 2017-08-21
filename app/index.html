@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Приложение для ежеждневного чтения Библии.">
+    <meta name="keywords" content="Библия, Чтение Библии, Церковь Преображение">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ежедневное чтение Библии</title>
+
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- Web Application Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Чтение Библии">
+    <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Чтение Библии">
+    <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#2F3BA2">
+
+    <!-- Color the status bar on mobile devices -->
+    <meta name="theme-color" content="#2F3BA2">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <!-- Material Design icons -->
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
+    <!--<link rel="stylesheet" href="../node_modules/md-date-time-picker/dist/css/mdDateTimePicker.min.css">-->
+
+    <!-- Material Design Lite page styles:
+    You can choose other color schemes from the CDN, more info here http://www.getmdl.io/customize/index.html
+    Format: material.color1-color2.min.css, some examples:
+    material.red-teal.min.css
+    material.blue-orange.min.css
+    material.purple-indigo.min.css
+    -->
+    <link rel="stylesheet" href="styles/material.css">
+    <!-- Your styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="https://cdn.auth0.com/js/auth0/8.7/auth0.min.js"></script>
+  </head>
+  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+          <h3>Дневник Преображения</h3>
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div aria-live="assertive" aria-atomic="true" aria-relevant="text" id="mdl-js-snackbar" class="mdl-snackbar mdl-js-snackbar">
+          <div class="mdl-snackbar__text"></div>
+          <button type="button" class="mdl-snackbar__action"></button>
+        </div>
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark menu">
+          <a href="#features" class="mdl-layout__tab is-active" id="#featuresTab">Читать</a>
+          <a href="#overview" class="mdl-layout__tab" id="#overviewTab">О проекте</a>
+          <a href="#profileTab" id="profile" class="mdl-layout__tab">Профиль</a>
+          <div class="menu-btn">
+            <button id="btn-login" class="mdl-button mdl-js-button mdl-button--raised test-class">
+              Войти
+            </button>
+            <button id="btn-logout" class="mdl-button mdl-js-button mdl-button--raised test-class">
+              Выйти
+            </button>
+          </div>
+        </div>
+      </header>
+      <main class="mdl-layout__content">
+        <div class="mdl-layout__tab-panel" id="overview">
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                <div>
+                  <h3>Дневник Преображения</h3>
+                  <p><a href="https://preo.in.ua" target="_blank">Церковь "Преображение"</a> г. Киева рада представить Вам "Дневник Преображения".
+                  Идея его основывается на благочестивом мотиве служителей церкви - помочь христианам навести порядок в их
+                  ежедневном общении с Богом</p>
+                  <p>"Дневник Преображения" даст Вам возможность следовать плану прочтения Библии за год на каждый день.
+                  Особую пользу этот дневник может принести для христианской семьи. Каждый член семьи, включая детей, которые
+                  уже могут читать, научатся с помощью этого дневника обращаться к Слову Божьему регулярно.
+                  Таким образом, кроме личной пользы, у вас появится возможность ежедневно делиться друг с другом прочитанным,
+                    а качество такого общения утвердит главенство Господа Иисуса Христа и Его Слова в Вашей семье.</p>
+                  <p>Желаем Вам, чтобы "Дневник Преображения" помог Вам достичь намеченной цели, а по истечению года стал своеобразным архивом Вашей духовной жизни.</p>
+                </div>
+                <div>
+                  <h3>Устройство "Дневника Преображения"</h3>
+                  <p>Дневник имеет 3 схемы чтения Библии:</p>
+                  <section>
+                    <div style="display: inline-flex"><i class="material-icons">crop_square</i><p style="vertical-align: middle"> - прочтение Ветхого завета за год</p></div><br>
+                    <p><strong>Основная задача:</strong> прочтение всего Ветхого завета за 1 год</p>
+                    <p><strong>Средний ежедневный объем текста для чтения:</strong> 3 главы из Ветхого завета</p>
+                    <p><strong>Время:</strong> минимум 10 - 15 минут</p>
+                    <p><strong>Целевая аудитория:</strong> служители церкви, проповедники, миссионеры</p>
+                    <p><strong>Степень посвященности:</strong> высокая</p>
+                    <p><strong>Ключевая мотивация:</strong> возрастать в вере в Бога и практической святости</p>
+                    <p><strong>Особая мотивация:</strong> быть эрудитом в Слове Божьем</p>
+                  </section>
+                  <section>
+                    <div style="display: inline-flex"><i class="material-icons">change_history</i><p style="vertical-align: middle"> - прочтение Нового завета за год</p></div><br>
+                    <p><strong>Основная задача:</strong> прочтение всего Нового завета за 1 год</p>
+                    <p><strong>Средний ежедневный объем текста для чтения:</strong> 1 глава из Нового завета</p>
+                    <p><strong>Время:</strong> минимум 5 - 10 минут</p>
+                    <p><strong>Целевая аудитория:</strong> мужья, жены и дети от 12 лет</p>
+                    <p><strong>Степень посвященности:</strong> средняя</p>
+                    <p><strong>Ключевая мотивация:</strong> возрастать в вере в Бога и практической святости</p>
+                    <p><strong>Особая мотивация:</strong> единство семьи в желании возрастать духовно</p>
+                  </section>
+                  <section>
+                    <div style="display: inline-flex"><i class="material-icons">panorama_fish_eye</i><p style="vertical-align: middle"> - прочтение одного стиха в день</p></div><br>
+                    <p><strong>Основная задача:</strong> прочитывать всего один стих в день</p>
+                    <p><strong>Средний ежедневный объем текста для чтения:</strong> от 2 стиха из Библии</p>
+                    <p><strong>Время:</strong> минимум 1 минута</p>
+                    <p><strong>Целевая аудитория:</strong> новообращенные верующие и дети от 6 до 12 лет</p>
+                    <p><strong>Степень посвященности:</strong> элементарная</p>
+                    <p><strong>Ключевая мотивация:</strong> возрастать в вере в Бога и практической святости</p>
+                    <p><strong>Особая мотивация:</strong> навык ежедневного обращения к Библии</p>
+                  </section>
+                  <section>
+                    <h3>Особенности веб-приложения</h3>
+                    <p>Ежедневно вам будут показываться те места из Библии, которые необходимо прочесть</p>
+                    <p>Если вы авторизируетесь в приложении, вам будут доступны дополнительные возможности:</br>
+                     - напоминания, в установленное вами время о том, что пора читать Библию.
+                    </p>
+                    <p>По мере развития приложения, будет добавляться описание возможностей.</p>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="mdl-layout__tab-panel is-active" id="features">
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-cell mdl-cell--12-col">
+              <h4>Чтение на <span id="date"></span> </h4>
+              <div class="mdl-card mdl-cell mdl-cell--12-col">
+                <div class="mdl-card__supporting-text">
+                  <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                    <div class="mdl-tabs__tab-bar">
+                      <a href="#old" class="mdl-tabs__tab is-active" title="Ветхий завет"><i class="material-icons">crop_square</i></a>
+                      <a href="#new" class="mdl-tabs__tab" title="Новый завет"><i class="material-icons">change_history</i></a>
+                      <a href="#verse" class="mdl-tabs__tab" title="Один стих"><i class="material-icons">panorama_fish_eye</i></a>
+                    </div>
+                    <div class="mdl-tabs__panel is-active" id="old">
+                      <div id="old_text"></div>
+                    </div>
+                    <div class="mdl-tabs__panel" id="new">
+                      <div id="new_text"></div>
+                    </div>
+                    <div class="mdl-tabs__panel" id="verse">
+                      <div id="verse_text"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="mdl-layout__tab-panel" id="profileTab">
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-cell mdl-cell--12-col">
+              <h4>Мой профиль</h4>
+              <p>Привет, <span id="user-name"></span></p>
+              <div class="mdl-card mdl-cell mdl-cell--12-col">
+                <div class="mdl-card__supporting-text">
+                  <section>
+                    <p>Вы можете включить уведомления, тогда мы сможем напоминать вам, о том, что пора читать Библию.</p>
+                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+                      <input type="checkbox" id="switch-1" class="push-switch mdl-switch__input">
+                      <span class="mdl-switch__label"></span>
+                    </label>
+                    <span id="pushButton"></span>
+                  </section>
+                  <section id="timeToRemember">
+                    <p>Выберите время, когда вы хотите получать напоминания:</p>
+                    <div class="mdl-textfield mdl-js-textfield">
+                      <input class="mdl-textfield__input" type="time" id="time">
+                      <label class="mdl-textfield__label" for="time"></label>
+                    </div>
+                    <div>
+                      <button id="chooseTimeBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Выбрать время</button>
+                    </div>
+                    <div class="choosenTime" id="choosenTime">Напоминание не установлено</div>
+                  </section>
+                  <section class="subscription-details js-subscription-details is-invisible">
+                    <pre><code class="js-subscription-json"></code></pre>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <footer class="mdl-mega-footer">
+          <div class="mdl-mega-footer--bottom-section">
+            <ul class="mdl-mega-footer--link-list">
+              <li><button class="mdl-button mdl-js-button mdl-js-ripple-effect preo mdl-button--colored">Церковь Преображение</button></li>
+            </ul>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <!--<script src="scripts/material.js"></script>-->
+    <!-- build:js scripts/main.min.js -->
+    <script src="scripts/material.js"></script>
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-60209623-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

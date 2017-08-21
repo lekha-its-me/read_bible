@@ -1,0 +1,13 @@
+{
+  "globals": {
+    "document": true,
+    "navigator": true,
+    "auth0": true,
+    "XMLHttpRequest": true,
+    "alert": true,
+    "localStorage": true,
+    "Notification": true,
+    "location": true,
+    "window": true
+  }
+}

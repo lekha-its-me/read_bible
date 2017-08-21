@@ -1,0 +1,25 @@
+{
+  "version": "0.0.2",
+  "name": "Чтение Библии",
+  "launch_path": "/index.html",
+  "description": "Приложение для ежедневного чтения Библии.",
+  "icons": {
+    "128": "/images/logo128.png"
+  },
+  "developer": {
+    "name": "Alexey Baranov",
+    "url": "https://lekha.pp.ua"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "ru",
+  "permissions": ["http://*/"],
+  "locales": {
+    "en": {
+      "name": "Reading the Bible",
+      "description": "Application for everyday reading the Bible."
+    }
+  },
+
+}
